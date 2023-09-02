@@ -10,6 +10,18 @@ export class App extends Component {
     filter: ''
   }
 
+  componentDidMount() {
+    const contacts = localStorage.getItem('contacts');
+    this.setState({
+      contacts: contacts ? JSON.parse(contacts) : []
+    })
+  };
+
+  componentDidUpdate() {
+    if (this.state.contacts !== null) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  };
 
   onAppendToContacts = contact => {
     if (this.isPossiblyToAppend(contact.name)) this.setState(prevState => ({
